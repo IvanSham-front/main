@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CommentsItem from './comments-item';
+import CommentForm from './CommentForm';
 
 
 class CommentsBlock extends React.Component {
@@ -11,10 +12,10 @@ class CommentsBlock extends React.Component {
       name: '',
       comment: '',
       comments: [
-
       ],
-    }
 
+    }
+    
     const json = JSON.parse(localStorage.getItem('comments'));
     const comments = this.state.comments;
     
@@ -23,7 +24,15 @@ class CommentsBlock extends React.Component {
         comments.push(json[i])
       }
     }
+  
+  }
 
+  handleChangeName(event) {
+    this.setState({name: event.target.value});
+  }
+
+  handleChangeComment(event) {
+    this.setState({comment: event.target.value});
   }
 
   addComment() {
@@ -56,36 +65,14 @@ class CommentsBlock extends React.Component {
     return (
       <aside className="comments-block">
         <h1 className="comments-block__title">Комментарии</h1>
-           <div className="comments-block__inputs">
-              <input
-                type="text" 
-                value={this.state.name} 
-                className="comments-block__input_name"
-                placeholder="Введите Имя"
-                required={true}
-                onChange = {ev => {
-                  this.setState({ name: ev.target.value})  
-                }}
-              />
 
-              <textarea
-                value={this.state.comment} 
-                className="comments-block__input_comment" 
-                placeholder="Ваш комментарий" 
-                required={true}
-                onChange = {ev => {
-                  this.setState({ comment: ev.target.value})  
-                }}
-              />
-              <button 
-                type="button" 
-                className="comments-block__btn-add"
-                onClick={ev => this.addComment()}  
-                >
-                  Добавить комментарий
-              </button> 
-            </div> 
-        
+        <CommentForm
+          name={this.state.name}
+          comment={this.state.comment}
+          handleChangeName={this.handleChangeName.bind(this)}
+          handleChangeComment={this.handleChangeComment.bind(this)}
+          addComment={this.addComment.bind(this)}
+        />
 
         <ul className="comments-block__ul">
           { 
