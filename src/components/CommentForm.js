@@ -1,23 +1,27 @@
 import React from 'react';
 
 const CommentForm = (props) => {
+    const { name, comment, addComment, onChangeComment, onChangeName } = props;
+
+    // Придумать куда включать функцию addComment и changeName/changeComment
     return (
-        <form className="comments-block__inputs" onSubmit={this.addComment}>
+        <form className="comments-block__inputs" onSubmit={ev => addComment(name, comment)}>
             <input
                 type="text" 
-                value={props.name} 
+                value={name} 
                 className="comments-block__input_name"
                 placeholder="Введите Имя"
                 required={true}
-                onChange = {props.handleChangeName}
+                onChange = {ev => onChangeName(ev.target.value)}
             />
 
             <textarea
-                value={props.comment} 
+                type="text"
+                value={comment} 
                 className="comments-block__input_comment" 
                 placeholder="Ваш комментарий" 
                 required={true}
-                onChange={props.handleChangeComment}
+                onChange={ev => onChangeComment(ev.target.value)}
             />
 
             <button 
