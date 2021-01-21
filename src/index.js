@@ -5,19 +5,11 @@ import CommentBlock from './containers/app';
 import reportWebVitals from './reportWebVitals';
 
 import { createStore } from 'redux';
-import allReducers from './reducers';
+import comments from './reducers/comments';
 
+const initialState = [];
 
-//Создать 3 редюсера для каждого состояния 
-const initialState = {
-  name: '',
-  comment: '',
-  comments: []
-}
- 
-
-
-const store = createStore(allReducers, initialState)
+const store = createStore(comments, initialState)
 
 ReactDOM.render(
   <React.StrictMode>
