@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CommentForm = (props) => {
-    const { addComment } = props;
+    const { addComment, updateLocalStorage } = props;
     return (
         <form className="comments-block__inputs"
             onSubmit={(e) => {
@@ -10,7 +10,7 @@ const CommentForm = (props) => {
                 const comment = document.querySelector('#userComment');
                 addComment(name.value, comment.value);
                 name.value = '';
-                comment.value = ''
+                comment.value = '';
                 }
             }
         >

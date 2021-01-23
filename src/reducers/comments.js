@@ -1,4 +1,6 @@
 const comments = (state = [], action) => {
+
+    
     switch (action.type) {
         case 'ADD_COMMENT': 
         return [
@@ -7,10 +9,7 @@ const comments = (state = [], action) => {
         ]
         
         case 'DELETE_COMMENT':
-            return [
-                ...state,
-                state.splice(action.id, 1)
-            ]
+            return state.filter(element => element.id !== action.id);
         default:
             return state    
     }

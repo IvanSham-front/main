@@ -7,9 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import comments from './reducers/comments';
 
-const initialState = [];
+const store = createStore(comments, JSON.parse(localStorage['comments']))
 
-const store = createStore(comments, initialState)
+store.subscribe(() => {
+  localStorage['comments'] = JSON.stringify(store.getState())
+})
 
 ReactDOM.render(
   <React.StrictMode>

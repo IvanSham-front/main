@@ -1,11 +1,14 @@
-let nextId = 0;
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 const dateOptions = { day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric'};
 
 export const addComment = (userName, comment) => {
 
     return {
         type: 'ADD_COMMENT',
-        id: nextId++, 
+        id: getRandomInt(10000), 
         userName,
         comment,
         date: new Date().toLocaleString('ru', dateOptions)
