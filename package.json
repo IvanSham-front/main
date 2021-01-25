@@ -47,5 +47,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nickeny/main/issues"
-  }
+  },
+  "homepage": "./"
 }

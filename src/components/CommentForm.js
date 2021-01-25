@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CommentForm = (props) => {
-    const { addComment, updateLocalStorage } = props;
+    const { addComment } = props;
     return (
         <form className="comments-block__inputs"
             onSubmit={(e) => {

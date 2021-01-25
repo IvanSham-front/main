@@ -7,7 +7,15 @@ import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import comments from './reducers/comments';
 
-const store = createStore(comments, JSON.parse(localStorage['comments']))
+const checkLocalStorage = () => {
+  if (localStorage['comments']) {
+    return JSON.parse(localStorage['comments'])
+  } else {
+    return []
+  }
+}
+
+const store = createStore(comments, checkLocalStorage());
 
 store.subscribe(() => {
   localStorage['comments'] = JSON.stringify(store.getState())
