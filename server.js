@@ -1,5 +1,7 @@
+//Файл для деплоя на heroku(Не трогать. Вся работа с БД ведется в index.js)
+
+
 const express = require('express');
-const bodyParser = require('body-parser')
 
 const path = require('path');
 const port = process.env.PORT || 8080;
@@ -22,15 +24,3 @@ app.get('/', function (req, res) {
 res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.listen(port);
-
-// const express = require('express')
-// const app = express()
-// const port = process.env.PORT || 8080;
-
-// app.get('/', (req, res) => {
-//   res.status(200).send('Hello World!');
-// })
-
-// app.listen(port, () => {
-//   console.log(`App running on port ${port}.`)
-// })

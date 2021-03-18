@@ -8,37 +8,24 @@ import { createStore } from 'redux';
 import comments from './reducers/comments';
 
 const { Pool } = require('pg');
-const pool = new Pool({
+
+const client = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
 
-const express = require('express');
-const path = require('path');
+client.connect();
 
-const port = process.env.PORT || 8080;
-
-// здесь у нас происходит импорт пакетов и определяется порт нашего сервера
-const app = express();
-
-
-//здесь наше приложение отдаёт статику
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'build')));
-
-//простой тест сервера
-app.get('/ping', function (req, res) {
- return res.send('pong');
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
 });
 
-//обслуживание html
-app.get('/', function (req, res) {
-res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-app.listen(port);
- 
 
 const checkLocalStorage = () => {
   if (localStorage['comments']) {
