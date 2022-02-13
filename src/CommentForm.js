@@ -2,7 +2,7 @@ import React from 'react';
 
 const CommentForm = (props) => {
     return (
-        <form className="comments-block__inputs" onSubmit={this.addComment}>
+        <form className="comments-block__inputs" onSubmit={props.addComment}>
             <input
                 type="text" 
                 value={props.name} 

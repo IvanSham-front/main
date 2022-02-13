@@ -16,13 +16,21 @@ class CommentsBlock extends React.Component {
 
     }
     
-    const json = JSON.parse(localStorage.getItem('comments'));
-    const comments = this.state.comments;
     
-    if (json) {
-      for (let i in json) {
-        comments.push(json[i])
-      }
+    
+    window.onload = () => {
+      fetch('http://localhost:8081')
+      .then(responce => responce.json())
+      .then(data => {
+        console.log(data);
+        const comments = []
+        for (let i in data) {
+          comments.push(data[i])
+        }
+        this.setState({
+          comments:comments
+        })
+      })
     }
   
   }
@@ -35,17 +43,34 @@ class CommentsBlock extends React.Component {
     this.setState({comment: event.target.value});
   }
 
-  addComment() {
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+  addComment(event) {
+    event.preventDefault()
     const comments = this.state.comments;
     if (this.state.name && this.state.comment) {
       const options = { day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric'};
       comments.push({
+        id: this.getRandomInt(1000),
         name: this.state.name,
         comment: this.state.comment,
         date: new Date().toLocaleString('ru', options)
       });
-      const json = JSON.stringify(this.state.comments);
-      localStorage.setItem('comments', json);
+      fetch('http://localhost:8081/comments_table', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          comments[comments.length - 1].id, 
+          comments[comments.length - 1].name, 
+          comments[comments.length - 1].comment,
+          comments[comments.length - 1].date
+          )
+      })
+      .then(responce => console.log(responce))
     }
 
     this.setState({comments});
